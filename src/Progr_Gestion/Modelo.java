@@ -318,7 +318,7 @@ public class Modelo
 							// Abrir automáticamente el archivo pdf cuando se pulse el botón 
 							Desktop.getDesktop() .open(new File(DEST));
 						}
-						catch (IOException e)
+					catch (IOException e)
 							{
 								e.printStackTrace();
 								

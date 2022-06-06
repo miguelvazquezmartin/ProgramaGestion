@@ -236,6 +236,9 @@ public class Controlador implements WindowListener, ActionListener
 						this.vista2.mniModificacionEmpleado.setEnabled(false); 
 						this.vista2.mniModificacionCamion.setEnabled(false); 
 						this.vista2.mniModificacionExplosivo.setEnabled(false);
+						this.vista2.mniConsultaEmpleado.setEnabled(false);
+						this.vista2.mniConsultaCamion.setEnabled(false);
+						this.vista2.mniConsultaExplosivo.setEnabled(false);
 					}
 				else
 					{
