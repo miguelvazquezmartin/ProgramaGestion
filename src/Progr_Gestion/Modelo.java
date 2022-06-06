@@ -288,7 +288,7 @@ public class Modelo
 							PdfFont fuente = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
 							
 							//Añadir alementos ante documento 
-							document.add(new Paragraph());
+							document.add(new Paragraph("Consulta Empleados").setFont(fuente).setFontSize(20));
 							
 							float[] anchoColumna = {1, 2, 3, 3, 2}; 
 							
@@ -485,7 +485,7 @@ public class Modelo
 						PdfFont fuenteCamion = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
 						
 						//Añadir elementos al documento 
-						document.add(new Paragraph());
+						document.add(new Paragraph("Consulta Camiones").setFont(fuenteCamion).setFontSize(20));
 						
 						float[] anchoColumnaCamion = {1, 2, 3, 3, 2, 2};
 						
@@ -703,7 +703,7 @@ public class Modelo
 						PdfFont fuenteExplosivo = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
 				
 						//Añadir elementos al documento 
-						document.add(new Paragraph());
+						document.add(new Paragraph("Consulta Explosivos").setFont(fuenteExplosivo).setFontSize(20));
 				
 						float[] anchoColumnaExplosivo = {1, 2, 3, 2}; 
 						
