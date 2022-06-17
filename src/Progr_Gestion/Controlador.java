@@ -2,11 +2,13 @@ package Progr_Gestion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.Connection;
 
-public class Controlador implements WindowListener, ActionListener
+public class Controlador implements WindowListener, ActionListener, ItemListener
 {
 	inicioSesion vista1; 
 	pantallaMenu vista2;
@@ -37,29 +39,47 @@ public class Controlador implements WindowListener, ActionListener
 			v2.frmAltaEmpleado.addWindowListener(this); 
 			v2.frmAltaCamion.addWindowListener(this); 
 			v2.frmAltaExplosivo.addWindowListener(this);
+			v2.frmAltaCliente.addWindowListener(this);
 			v2.frmBajaEmpleado.addWindowListener(this); 
 			v2.frmBajaCamion.addWindowListener(this);
-			v2.frmBajaExplosivo.addWindowListener(this); 
+			v2.frmBajaExplosivo.addWindowListener(this);
+			v2.frmBajaCliente.addWindowListener(this);
 			v2.frmModificarEmpleado.addWindowListener(this);
-			v2.frmModificarTelefonoEmpleado.addWindowListener(this);
-			v2.frmModificarDireccionEmpleado.addWindowListener(this);
+			v2.frmModificarEspecificoEmpleado.addWindowListener(this);
+			v2.frmModificarEspecificoCliente.addWindowListener(this);
+			v2.frmModificarCliente.addWindowListener(this);
 			v2.frmModificarCapacidadCamion.addWindowListener(this);
-			v2.frmModificarTonelajeExplosivo.addWindowListener(this);
-			v2.frmModificarPrecioExplosivo.addWindowListener(this);
+			v2.frmModificarExplosivoAvanzado.addWindowListener(this);
 			v2.frmModificarCamion.addWindowListener(this);
 			v2.frmModificarExplosivo.addWindowListener(this); 
 			v2.frmConsultaEmpleado.addWindowListener(this); 
 			v2.frmConsultaCamion.addWindowListener(this); 
 			v2.frmConsultaExplosivo.addWindowListener(this);
+			v2.frmConsultaCliente.addWindowListener(this);
+			v2.frmInformacion.addWindowListener(this);
+			v2.frmPreAltaEmpleado.addWindowListener(this);
 			
+			
+		
+		//AYUDA
+			
+			//Ayuda
+				v2.mniAyuda.addActionListener(this);
+				v2.mniInform.addActionListener(this);
+				v2.mniFichero.addActionListener(this);
+				v2.btnVolverInformacion.addActionListener(this);
+				
 		//EMPLEADOS 
 			
 			//Alta
+				
 				v2.mniAltaEmpleado.addActionListener(this);
 				v2.btnAltaEmpleado.addActionListener(this);
 				v2.btnCorrectoAltaEmpleadoVolver.addActionListener(this);
 				v2.btnErrorAltaEmpleadoVolver.addActionListener(this);
 				v2.btnVolverGeneralAltaEmpleado.addActionListener(this);
+				v2.btnVolverPreAltaEmpleado.addActionListener(this);
+				v2.btnPreAltaEmpleado.addActionListener(this);
 			
 			//Baja
 				v2.mniBajaEmpleado.addActionListener(this);
@@ -75,11 +95,9 @@ public class Controlador implements WindowListener, ActionListener
 				v2.btnModVolEmpleado.addActionListener(this);
 				v2.btnModVolDialogoCorrectaEmpleado.addActionListener(this);
 				v2.btnModificarEmpleado.addActionListener(this);
-				v2.btnModTelefonoEmpleado.addActionListener(this);
-				v2.btnModDireccionEmpleado.addActionListener(this);
+				v2.btnModEspecificoEmpleado.addActionListener(this);
 				v2.btnModVolDialogoErrorEmpleado.addActionListener(this);
-				v2.btnVolModTelEmpleado.addActionListener(this);
-				v2.btnVolModDirEmpleado.addActionListener(this);
+				v2.btnVolModEspEmpleado.addActionListener(this);
 				
 			//Consulta
 				v2.mniConsultaEmpleado.addActionListener(this);
@@ -145,11 +163,10 @@ public class Controlador implements WindowListener, ActionListener
 				v2.btnModVolExplosivo.addActionListener(this); 
 				v2.btnModVolDialogoCorrectaExplosivo.addActionListener(this);
 				v2.btnModificarExplosivo.addActionListener(this); 
+				v2.choModificarExplosivo.addItemListener(this);
 				v2.btnModTonelajeExplosivo.addActionListener(this); 
-				v2.btnModPrecioExplosivo.addActionListener(this); 
 				v2.btnModVolDialogoErrorExplosivo.addActionListener(this); 
 				v2.btnVolModTonExplosivo.addActionListener(this);
-				v2.btnVolModPreExplosivo.addActionListener(this);
 				
 			//Consulta
 				v2.mniConsultaExplosivo.addActionListener(this);
@@ -157,6 +174,43 @@ public class Controlador implements WindowListener, ActionListener
 				v2.btnPdfExplosivo.addActionListener(this); 
 				v2.btnVolverConsultaExplosivo.addActionListener(this);
 				v2.btnExportMalExplosivo.addActionListener(this);
+			
+		//CLIENTES
+				
+			//Alta 
+				
+				v2.mniAltaCliente.addActionListener(this); 
+				v2.btnAltaCliente.addActionListener(this); 
+				v2.btnCorrectoAltaClienteVolver.addActionListener(this);
+				v2.btnVolverGeneralAltaCliente.addActionListener(this);
+				v2.btnErrorAltaClienteVolver.addActionListener(this);
+				
+			//Baja 
+				
+				v2.mniBajaCliente.addActionListener(this);
+				v2.btnBajaCliente.addActionListener(this);
+				v2.btnCorrectoBajaClienteVolver.addActionListener(this);
+				v2.btnErrorBajaClienteVolver.addActionListener(this);
+				v2.btnVolverGeneralBajaCliente.addActionListener(this);
+				v2.btnSiSeguroClienteBaja.addActionListener(this);
+				v2.btnNoSeguroClienteBaja.addActionListener(this);
+			
+			//Modificación
+				
+				v2.mniModificacionCliente.addActionListener(this);
+				v2.btnModVolCliente.addActionListener(this);
+				v2.btnModVolDialogoCorrectaCliente.addActionListener(this);
+				v2.btnModificarCliente.addActionListener(this);
+				v2.btnModificarClienteNuevo.addActionListener(this);
+				v2.btnModVolDialogoErrorCliente.addActionListener(this);
+				v2.btnVolModCliente.addActionListener(this);
+		
+			//Consulta
+				v2.mniConsultaCliente.addActionListener(this); 
+				v2.frmConsultaCliente.addWindowListener(this); 
+				v2.btnPdfCliente.addActionListener(this); 
+				v2.btnVolverConsultaCliente.addActionListener(this); 
+				v2.btnExportMalCliente.addActionListener(this);
 	}
 
 
@@ -216,6 +270,8 @@ public class Controlador implements WindowListener, ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
+		
+				
 		//Boton iniciar sesion conectado con la base de datos
 		if(e.getSource().equals(this.vista1.btnIniciar))
 			{
@@ -244,6 +300,7 @@ public class Controlador implements WindowListener, ActionListener
 					{
 						this.vista1.dialogoLogin.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}	
 
 	//Volver desde el diálogo de error inicio sesión usuario
@@ -255,35 +312,107 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista1.contraseniaUsuario.setText("");
 			}
 		
-	// Lanzar ventana Alta Empleado
-		if(e.getSource().equals(this.vista2.mniAltaEmpleado))
+	//Ventana AYUDA
+		if(e.getSource().equals(this.vista2.mniAyuda))
 			{
-				this.vista2.setVisible(false); 
-				this.vista2.dialogoBajaEmpleadoBien.setVisible(false); 
-				this.vista2.frmAltaEmpleado.setVisible(true);
+				this.modelo.ayuda(conexion);
+				this.modelo.desconected(conexion);
 			}
 		
-	//Volver desde la ventana de Alta de empleado
+	//Ventana INFORMACIÓN
+		if(e.getSource().equals(this.vista2.mniInform))
+			{
+				this.vista2.frmInformacion.setVisible(true);
+				this.vista2.setVisible(false);
+			}
+		
+	//Volver ventana INFORMACIÓN
+		if(e.getSource().equals(this.vista2.btnVolverInformacion))
+		{
+			this.vista2.frmInformacion.setVisible(false);
+			this.vista2.setVisible(true);
+		}
+		
+	//Ventana Fichero.Log
+		if(e.getSource() != null)
+			{
+				this.modelo.ficheroLog(this.vista1.nombreUsuario.getText(), this.modelo.sentencia);
+			}
+		
+	// Lanzar ventana de Pre Alta Empleado
+		if(e.getSource().equals(this.vista2.mniAltaEmpleado))
+			{
+				this.vista2.setVisible(false);  
+				this.vista2.frmPreAltaEmpleado.setVisible(true);
+			}
+		
+	//Volver desde la ventana de Pre Alta de empleado
+		if(e.getSource().equals(this.vista2.btnVolverPreAltaEmpleado))
+			{
+				this.vista2.frmPreAltaEmpleado.setVisible(false); 
+				this.vista2.setVisible(true);
+			}
+	//Lanzar pantalla ALTA EMPLEADO 
+		if(e.getSource().equals(this.vista2.btnPreAltaEmpleado))
+			{
+				this.vista2.frmPreAltaEmpleado.setVisible(false);
+				this.vista2.frmAltaEmpleado.setVisible(true);	
+			//Según la selección de tipo de empleado, se habilitan unos textfields u otros
+				//Habilita los textfields para Administrativos
+				if(this.vista2.choTipoEmpleado.getSelectedItem().equals("Administrativo"))
+					{
+						this.vista2.txtIdiomaAdministrativo.setEnabled(true);
+						this.vista2.txtTituloAdministrativo.setEnabled(true);
+						this.vista2.txtCarnetConducirConductor.setEnabled(false);
+					}
+				//Habilita los textfields para los conductores
+				else if ( this.vista2.choTipoEmpleado.getSelectedItem().equals("Conductor"))
+					{
+						this.vista2.txtIdiomaAdministrativo.setEnabled(false);
+						this.vista2.txtTituloAdministrativo.setEnabled(false);
+						this.vista2.txtCarnetConducirConductor.setEnabled(true);
+					}
+			}		
+		
+	//Volver desde la ventana de Pre Alta de empleado
 		if(e.getSource().equals(this.vista2.btnVolverGeneralAltaEmpleado))
 			{
 				this.vista2.frmAltaEmpleado.setVisible(false); 
-				this.vista2.setVisible(true);
+				this.vista2.frmPreAltaEmpleado.setVisible(true); 
 			}
 		
 	//Funcionalidad ALTA EMPLEADO 
 		if(e.getSource().equals(this.vista2.btnAltaEmpleado))
 			{
+				//conectar con la base de datos y el método crear. 
 				conexion = this.modelo.conectar();
-				String altaEmpleadook = this.modelo.crear(conexion, vista2.txtTelefonoEmpleado.getText(), vista2.txtDniEmpleado.getText(), vista2.txtNombreEmpleado.getText(), vista2.txtDireccionEmpleado.getText(), vista2.txtApellidosEmpleado.getText()); 
-		
-				if(altaEmpleadook.equals("correcto"))
+				String altaEmpleadoOk = this.modelo.crear(conexion, vista2.txtTelefonoEmpleado.getText(), vista2.txtDniEmpleado.getText(), vista2.txtNombreEmpleado.getText(), vista2.txtDireccionEmpleado.getText(), vista2.txtApellidosEmpleado.getText());
+				
+				if(altaEmpleadoOk.equals("correcto"))
 					{
+					//si el método ha funcionado correctamente, lanza la ventana de dialogo de alta correcta
 						this.vista2.dialogoAltaEmpleadoBien.setVisible(true);
+						//Para dar de alta al mismo tiempo al empleado en las tablas de conductores o administrativos, enlazamos con el FK obteniendo el idEmpleado
+						String idNumero = this.modelo.enlazar(conexion);
+						System.out.println(idNumero);
+						
+						//si el elemento seleccionado es el del conductor, lanza el método de alta conductor, por el contrario lanza el de administrativo
+						if(this.vista2.choTipoEmpleado.getSelectedItem().equals("Conductor"))
+							{
+								conexion = this.modelo.conectar();
+								this.modelo.crearConductor(conexion, vista2.txtCarnetConducirConductor.getText(), idNumero);
+							}
+						if(this.vista2.choTipoEmpleado.getSelectedItem().equals("Administrativo"))
+							{
+								conexion = this.modelo.conectar();
+								this.modelo.crearAdministrativo(conexion, vista2.txtTituloAdministrativo.getText(), vista2.txtIdiomaAdministrativo.getText(), idNumero);
+							}
 					}	
 				else
 					{
 						this.vista2.dialogoAltaEmpleadoMal.setVisible(true);
 					}
+			this.modelo.desconected(conexion);
 			}
 		
 	//Volver desde el diálogo de alta correcta de empleado
@@ -297,6 +426,9 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista2.txtNombreEmpleado.setText(""); 
 				this.vista2.txtDireccionEmpleado.setText(""); 
 				this.vista2.txtApellidosEmpleado.setText("");
+				this.vista2.txtCarnetConducirConductor.setText("");
+				this.vista2.txtTituloAdministrativo.setText("");
+				this.vista2.txtIdiomaAdministrativo.setText("");
 			}
 		
 	//Volver desde el diálogo de error alta empleado
@@ -310,7 +442,9 @@ public class Controlador implements WindowListener, ActionListener
 		if(e.getSource().equals(this.vista2.mniBajaEmpleado))
 			{
 				this.vista2.setVisible(false); 
+				this.vista2.dlgSeguroEmpleadoBaja.setVisible(false);
 				this.vista2.frmBajaEmpleado.setVisible(true);
+				
 			}
 	
 	//Volver desde ventana de baja empleado
@@ -331,6 +465,7 @@ public class Controlador implements WindowListener, ActionListener
 			{
 				conexion = this.modelo.conectar(); 
 				this.vista2.choEmpleado = (this.modelo.borrar(conexion, this.vista2.choEmpleado));
+				this.modelo.desconected(conexion);
 			}
 	
 	//Funcionalidad BAJA EMPLEADO
@@ -352,6 +487,7 @@ public class Controlador implements WindowListener, ActionListener
 						this.vista2.dlgSeguroEmpleadoBaja.setVisible(false); 
 						this.vista2.dialogoBajaEmpleadoMal.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 		
 	// Volver desde el diálogo de baja correcta del empleado
@@ -384,14 +520,55 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista2.setVisible(false); 
 				conexion = this.modelo.conectar(); 
 				this.vista2.choModificarEmpleado = this.modelo.elegirEmpleadoModificar(conexion, this.vista2.choModificarEmpleado);
+				this.modelo.desconected(conexion);
+				
 			}
-
-	//Lanzar pantalla modificación teléfono empleado
-		if(e.getSource().equals(this.vista2.btnModificarEmpleado) && this.vista2.choSeleccionarCampo.getSelectedItem().equals("Teléfono"))
-			{
-				this.vista2.frmModificarEmpleado.setVisible(false);
-				this.vista2.frmModificarTelefonoEmpleado.setVisible(true);
-			}
+		
+		//Lanzar pantalla modificación especifico empleado
+			if(e.getSource().equals(this.vista2.btnModificarEmpleado))
+				{
+					this.vista2.frmModificarEmpleado.setVisible(false);
+					this.vista2.frmModificarEspecificoEmpleado.setVisible(true); 
+					//utilizo este array para obtener el numero de idEmpleado, así pasarselo posteriormente al modelo y poder relacionar los datos entre las tablas
+					String[] cogerIdEmpleado = this.vista2.choModificarEmpleado.getSelectedItem().split(" / ");
+					conexion = this.modelo.conectar();
+					//obtengo todos los datos del empleado seleccionado en el choice
+					String rellenarHueco = this.modelo.rellenarTextModificarGeneral(conexion, cogerIdEmpleado[0]);
+					String[] seleccionadoGeneral = rellenarHueco.split(" / ");
+					this.vista2.txtTelefonoEmpleadoModificar.setText(seleccionadoGeneral[3]); 
+					this.vista2.txtDniEmpleadoModificar.setText(seleccionadoGeneral[2]);
+					this.vista2.txtNombreEmpleadoModificar.setText(seleccionadoGeneral[0]);
+					this.vista2.txtDireccionEmpleadoModificar.setText(seleccionadoGeneral[4]);
+					this.vista2.txtApellidosEmpleadoModificar.setText(seleccionadoGeneral[1]);
+					//obtengo los datos de la tabla de administrativo comparando el id EMpleado obtenido con el idEmpleadoFK de la tabla 
+					String rellenarHuecoAdministrativo = this.modelo.rellenarTextModificarAdministrativo(conexion, cogerIdEmpleado[0]);
+					String[] seleccionadoAdministrativo = rellenarHuecoAdministrativo.split(" / ");
+					//obtengo los datos de la tabla de administrativo comparando el id EMpleado obtenido con el idEmpleadoFK de la tabla 
+					String rellenarHuecoConductor = this.modelo.rellenarTextModificarConductor(conexion, cogerIdEmpleado[0]);
+					String[] seleccionadoConductor = rellenarHuecoConductor.split(" / ");
+					//Si no obtengo datos del array de administrativos quiere decir que el empleado es conductor
+					if (seleccionadoAdministrativo[0].isEmpty() || seleccionadoAdministrativo[1].isEmpty())
+						{
+							this.vista2.txtTipoEmpleadoModificar.setText("Conductor");
+							this.vista2.txtTipoEmpleadoModificar.setEnabled(false);
+							this.vista2.txtIdiomaAdministrativoModificar.setEnabled(false);
+							this.vista2.txtTituloAdministrativoModificar.setEnabled(false);
+							this.vista2.txtCarnetConducirConductorModificar.setEnabled(true);
+							this.vista2.txtCarnetConducirConductorModificar.setText(seleccionadoConductor[0]);
+						}
+					//Si no obtengo datos del array de conductores quiere decir que el empleado es administrativo
+					if(seleccionadoConductor[0].isEmpty())
+						{
+							this.vista2.txtTipoEmpleadoModificar.setText("Administrativo");
+							this.vista2.txtTipoEmpleadoModificar.setEnabled(false);
+							this.vista2.txtCarnetConducirConductorModificar.setEnabled(false);
+							this.vista2.txtIdiomaAdministrativoModificar.setEnabled(true);
+							this.vista2.txtTituloAdministrativoModificar.setEnabled(true);
+							this.vista2.txtIdiomaAdministrativoModificar.setText(seleccionadoAdministrativo[0]);
+							this.vista2.txtTituloAdministrativoModificar.setText(seleccionadoAdministrativo[1]);
+						}
+					this.modelo.desconected(conexion);
+				}
 		
 	//Volver desde ventana modificar empleado
 		if(e.getSource().equals(this.vista2.btnModVolEmpleado))
@@ -401,67 +578,49 @@ public class Controlador implements WindowListener, ActionListener
 			}
 
 	//Funcionalidad MODIFICAR TELÉFONO EMPLEADO
-		if(e.getSource().equals(this.vista2.btnModTelefonoEmpleado))
+		if(e.getSource().equals(this.vista2.btnModEspecificoEmpleado))
 			{	
-				conexion = this.modelo.conectar(); 
-				String[] seleccionadoTelefono = this.vista2.choModificarEmpleado.getSelectedItem().split(" / "); 
-				String telefonoElegido = this.modelo.empleadoSeleccionadoTelefono(conexion, seleccionadoTelefono[0], vista2.txtNuevoTelefonoEmpleado.getText());
+				conexion = this.modelo.conectar();  
+				String[] seleccionadoEspecifico = this.vista2.choModificarEmpleado.getSelectedItem().split(" / ");
+				String modEspecifico = this.modelo.empleadoSeleccionadoEspecifico(conexion, seleccionadoEspecifico[0], this.vista2.txtTelefonoEmpleadoModificar.getText(), this.vista2.txtDniEmpleadoModificar.getText(), this.vista2.txtNombreEmpleadoModificar.getText(), this.vista2.txtDireccionEmpleadoModificar.getText(), this.vista2.txtApellidosEmpleadoModificar.getText());
 				
-				if (telefonoElegido.equals("correcto"))
+				if (modEspecifico.equals("correcto"))
 					{
-						this.vista2.frmModificarTelefonoEmpleado.setVisible(false); 
+						if(this.vista2.txtTipoEmpleadoModificar.getText().equals("Conductor"))
+							{
+								this.modelo.empleadoSeleccionadoEspecificoConductor(conexion, seleccionadoEspecifico[0], vista2.txtCarnetConducirConductorModificar.getText());
+							}
+						if(this.vista2.txtTipoEmpleadoModificar.getText().equals("Administrativo"))
+							{
+								this.modelo.empleadoSeleccionadoEspecificoAdministrativo(conexion, seleccionadoEspecifico[0], vista2.txtTituloAdministrativoModificar.getText(), this.vista2.txtIdiomaAdministrativoModificar.getText());
+							}
+						this.vista2.frmModificarEspecificoEmpleado.setVisible(false); 
 						this.vista2.dlgModCorrectaEmpleado.setVisible(true);
 					}
 				else
 					{
-						this.vista2.frmModificarTelefonoEmpleado.setVisible(false); 
+						this.vista2.frmModificarEspecificoEmpleado.setVisible(false); 
 						this.vista2.dlgModErrorEmpleado.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 		
-	// Volver a modificación desde modificar teléfono empleado
-		if(e.getSource().equals(this.vista2.btnVolModTelEmpleado))
+	// Volver a modificación desde modificar específica empleado
+		if(e.getSource().equals(this.vista2.btnVolModEspEmpleado))
 			{
-				this.vista2.txtNuevoTelefonoEmpleado.setText(""); 
-				this.vista2.dlgModCorrectaEmpleado.setVisible(false); 
+				this.vista2.txtTelefonoEmpleadoModificar.setText(""); 
+				this.vista2.txtDniEmpleadoModificar.setText("");
+				this.vista2.txtNombreEmpleadoModificar.setText("");
+				this.vista2.txtDireccionEmpleadoModificar.setText("");
+				this.vista2.txtApellidosEmpleadoModificar.setText("");
+				this.vista2.txtTipoEmpleadoModificar.setText("");
+				this.vista2.txtIdiomaAdministrativoModificar.setText("");
+				this.vista2.txtTituloAdministrativoModificar.setText("");
+				this.vista2.txtCarnetConducirConductorModificar.setText("");
+				this.vista2.frmModificarEspecificoEmpleado.setVisible(false); 
 				this.vista2.frmModificarEmpleado.setVisible(true);
 			}
 	
-
-	// Lanzar pantalla modificación dirección del empleado 
-		if(e.getSource().equals(this.vista2.btnModificarEmpleado) && this.vista2.choSeleccionarCampo.getSelectedItem().equals("Dirección"))
-			{
-				this.vista2.frmModificarEmpleado.setVisible(false);
-				this.vista2.frmModificarDireccionEmpleado.setVisible(true);
-			}
-
-	//Funcionalidad MODIFICAR DIRECCIÓN EMPLEADO
-		if(e.getSource().equals(this.vista2.btnModDireccionEmpleado))
-			{
-				conexion = this.modelo.conectar(); 
-				String[] seleccionadaDireccion = this.vista2.choModificarEmpleado.getSelectedItem().split(" / "); 
-				String direccionElegida = this.modelo.empleadoSeleccionadaDireccion(conexion, seleccionadaDireccion[0], vista2.txtNuevaDireccionEmpleado.getText());
-				
-				if(direccionElegida.equals("correcto"))
-					{
-						this.vista2.frmModificarDireccionEmpleado.setVisible(false);
-						this.vista2.dlgModCorrectaEmpleado.setVisible(true);
-					}
-				else
-					{
-						this.vista2.frmModificarDireccionEmpleado.setVisible(false); 
-						this.vista2.dlgModErrorEmpleado.setVisible(true);
-					}
-			}
-
-	//Volver a modificar desde modificar dirección del empleado
-		if(e.getSource().equals(this.vista2.btnVolModDirEmpleado))
-			{
-				this.vista2.txtNuevaDireccionEmpleado.setText(""); 
-				this.vista2.frmModificarDireccionEmpleado.setVisible(false); 
-				this.vista2.frmModificarEmpleado.setVisible(true);
-			}
-		
 	//Volver desde el diálogo de modificación correcta
 		if(e.getSource().equals(this.vista2.btnModVolDialogoCorrectaEmpleado))
 			{
@@ -473,7 +632,7 @@ public class Controlador implements WindowListener, ActionListener
 		if(e.getSource().equals(this.vista2.btnModVolDialogoErrorEmpleado))
 			{
 				this.vista2.dlgModErrorEmpleado.setVisible(false); 
-				this.vista2.frmModificarTelefonoEmpleado.setVisible(true);
+				this.vista2.frmModificarEspecificoEmpleado.setVisible(true);
 			}
 		
 	//Lanzar ventana de CONSULTA EMPLEADO
@@ -498,6 +657,13 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista2.txaListadoEmpleado.setText(""); 
 				String consulta = this.modelo.consultaEmpleado();
 				this.vista2.txaListadoEmpleado.append(consulta);
+				this.vista2.txaListadoEmpleadoConductores.setText(""); 
+				String consultaConductores = this.modelo.consultaEmpleadoConductores();
+				this.vista2.txaListadoEmpleadoConductores.append(consultaConductores);	
+				this.vista2.txaListadoEmpleadoAdministrativos.setText(""); 
+				String consultaAdministrativos = this.modelo.consultaEmpleadoAdministrativos();
+				this.vista2.txaListadoEmpleadoAdministrativos.append(consultaAdministrativos);	
+				this.modelo.desconected(conexion);
 			}
 
 	//Función del botón EXPORTAR PDF
@@ -505,13 +671,16 @@ public class Controlador implements WindowListener, ActionListener
 			{
 				conexion = this.modelo.conectar(); 
 				String datos = this.modelo.consultaEmpleado(); 
-				String consultaError = this.modelo.exportPdf(conexion, datos); 
+				String datosConductores = this.modelo.consultaEmpleadoConductores(); 
+				String datosAdministrativos = this.modelo.consultaEmpleadoAdministrativos(); 
+				String consultaError = this.modelo.exportPdf(conexion, datos, datosConductores, datosAdministrativos); 
 				
 				//Diálogo si ha habido un error al exportar el documento 
 				if(consultaError.equals("error"))
 					{
 						this.vista2.dialogoExportPdfMalEmpleado.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 
 	//Volver al menu de consultas si ha habido algún error al exportar el pdf empleado
@@ -544,12 +713,13 @@ public class Controlador implements WindowListener, ActionListener
 				String altaCamionOk = this.modelo.crearCamion(conexion, vista2.txtCapacidadCamion.getText(), vista2.txtMarcaCamion.getText(), vista2.txtAnioCompraCamion.getText(), vista2.txtMatriculaCamion.getText(), vista2.txtModeloCamion.getText());
 				if(altaCamionOk.equals("correcto"))
 					{
-					this.vista2.dialogoAltaCamionBien.setVisible(true);
+						this.vista2.dialogoAltaCamionBien.setVisible(true);
 					}
 				else
 					{
 						this.vista2.dialogoAltaCamionMal.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 		
 	//Volver desde diálogo de correcto alta Camión
@@ -597,6 +767,7 @@ public class Controlador implements WindowListener, ActionListener
 			{
 				conexion = this.modelo.conectar(); 
 				this.vista2.choCamion = (this.modelo.borrarCamion(conexion, this.vista2.choCamion));
+				this.modelo.desconected(conexion);
 			}
 		
 	//Función BAJA CAMIÓN
@@ -618,6 +789,7 @@ public class Controlador implements WindowListener, ActionListener
 						this.vista2.dlgSeguroCamionBaja.setVisible(false); 
 						this.vista2.dialogoBajaCamionMal.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			
 			}
 		
@@ -654,6 +826,7 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista2.setVisible(false); 
 				conexion = this.modelo.conectar(); 
 				this.vista2.choModificarCamion = (this.modelo.elegirCamionModificar(conexion, this.vista2.choModificarCamion));
+				this.modelo.desconected(conexion);
 			}
 		
 	// Lanzar ventana MODIFICAR CAPACIDAD
@@ -680,6 +853,7 @@ public class Controlador implements WindowListener, ActionListener
 						this.vista2.frmModificarCapacidadCamion.setVisible(false); 
 						this.vista2.dlgModErrorCamion.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 		
 	//Volver a modificar desde el diálogo de modificar capacidad camión
@@ -734,6 +908,7 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista2.txalistadoCamion.setText(""); 
 				String consultaCam = this.modelo.consultaCamion(); 
 				this.vista2.txalistadoCamion.append(consultaCam);
+				this.modelo.desconected(conexion);
 			}
 
 	//Función EXPORTAR PDF CAMIÓN
@@ -747,6 +922,7 @@ public class Controlador implements WindowListener, ActionListener
 					{
 						this.vista2.dialogoExportPdfMalCamion.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 
 	//Volver desde el diálogo ha habido un error al exportar pdf camión
@@ -762,7 +938,10 @@ public class Controlador implements WindowListener, ActionListener
 		if(e.getSource().equals(this.vista2.mniAltaExplosivo))
 			{
 				this.vista2.setVisible(false); 
-				this.vista2.frmAltaExplosivo. setVisible(true);
+				this.vista2.frmAltaExplosivo.setVisible(true);
+				conexion = this.modelo.conectar(); 
+				this.vista2.choClienteExplosivo = (this.modelo.seleccionarClienteExplosivo(conexion, this.vista2.choClienteExplosivo));
+				this.modelo.desconected(conexion);
 			}
 
 	// Volver desde ventana alta explosivos
@@ -776,7 +955,8 @@ public class Controlador implements WindowListener, ActionListener
 		if(e.getSource().equals(this.vista2.btnAltaExplosivo))
 			{
 				conexion = this.modelo.conectar();
-				String altaExplosivoOk = this.modelo.crearExplosivo(conexion, this.vista2.txtTonelajeExplosivo.getText(), this.vista2.txtTipoExplosivo.getText(), this.vista2.txtPrecioExplosivo.getText()); 
+				String[] seleccionClienteExplosivo = this.vista2.choClienteExplosivo.getSelectedItem().split("-");
+				String altaExplosivoOk = this.modelo.crearExplosivo(conexion, this.vista2.txtTonelajeExplosivo.getText(), this.vista2.txtTipoExplosivo.getText(), this.vista2.txtPrecioExplosivo.getText(), seleccionClienteExplosivo[0]); 
 				if(altaExplosivoOk.equals("correcto"))
 					{
 						this.vista2.frmAltaExplosivo.setVisible(false); 
@@ -787,6 +967,7 @@ public class Controlador implements WindowListener, ActionListener
 						this.vista2.frmAltaExplosivo.setVisible(false); 
 						this.vista2.dialogoAltaExplosivoMal.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 
 	// Vovler desde diálogo de correcto alta explosivo
@@ -832,13 +1013,14 @@ public class Controlador implements WindowListener, ActionListener
 			{
 				conexion = this.modelo.conectar(); 
 				this.vista2.choExplosivo = (this.modelo.borrarExplosivo(conexion, this.vista2.choExplosivo));
+				this.modelo.desconected(conexion);
 			}
 
 	//Función BAJA EXPLOSIVO
 		if(e.getSource().equals(this.vista2.btnSiSeguroExplosivoBaja))
 			{
 				conexion = this.modelo.conectar(); 
-				String[] seleccionadoExplosivo = this.vista2.choExplosivo.getSelectedItem().split(""); 
+				String[] seleccionadoExplosivo = this.vista2.choExplosivo.getSelectedItem().split("-"); 
 				String bajaExplosivo = this.modelo.eliminarExplosivo(conexion, seleccionadoExplosivo[0]);
 			
 				if(bajaExplosivo.equals("correcto"))
@@ -853,6 +1035,7 @@ public class Controlador implements WindowListener, ActionListener
 						this.vista2.dlgSeguroExplosivoBaja.setVisible(false); 
 						this.vista2.dialogoBajaExplosivoMal.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 
 	//Volver desde diálogo baja explosivo correcta
@@ -887,40 +1070,32 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista2.frmModificarExplosivo.setVisible(true); 
 				this.vista2.setVisible(false); 
 				conexion = this.modelo.conectar(); 
-				this.vista2.choModificarExplosivo = (this.modelo.elegirExplosivoModificar(conexion, this.vista2.choModificarExplosivo));
+				this.vista2.choClienteSeleccionado = (this.modelo.seleccionarClienteExplosivo(conexion, this.vista2.choClienteSeleccionado));
+				this.modelo.desconected(conexion);
 			}
 
-	// Lanzar ventana MODIFICAR TONELAJE 
-		if(e.getSource().equals(this.vista2.btnModificarExplosivo) && this.vista2.choSeleccionarCampoExplosivo.getSelectedItem().equals("Tonelaje"))
+	// Lanzar ventana MODIFICAR AVANZADA
+		if(e.getSource().equals(this.vista2.btnModificarExplosivo))
 			{
 				this.vista2.frmModificarExplosivo.setVisible(false); 
-				this.vista2.frmModificarTonelajeExplosivo.setVisible(true);
-			}
-
-	//Funcionalidad MODIFICAR TONELAJE
-		if(e.getSource().equals(this.vista2.btnModTonelajeExplosivo))
-			{
+				this.vista2.frmModificarExplosivoAvanzado.setVisible(true);
 				conexion = this.modelo.conectar(); 
-				String[] seleccionadoTonelaje = this.vista2.choModificarExplosivo.getSelectedItem().split("/"); 
-				String tonelajeElegido = this.modelo.explosivoSelecionarTonelaje(conexion, seleccionadoTonelaje[0], this.vista2.txtNuevoTonelajeExplosivo.getText());
-					
-				if(tonelajeElegido.equals("correcto"))
-					{
-						this.vista2.frmModificarTonelajeExplosivo.setVisible(false); 
-						this.vista2.dlgModCorrectaExplosivo.setVisible(true);
-					}
-				else
-					{
-						this.vista2.frmModificarTonelajeExplosivo.setVisible(false); 
-						this.vista2.dlgModErrorExplosivo.setVisible(true);
-					}	
+				String[] seleccionarExplosivoModificar = this.vista2.choClienteSeleccionado.getSelectedItem().split("-"); 
+				this.vista2.choModificarExplosivo = this.modelo.elegirExplosivoModificar(conexion, this.vista2.choModificarExplosivo, seleccionarExplosivoModificar[0]);	
+				this.modelo.desconected(conexion);
 			}
 		
-	//Volver desde ventana de modificación del tonelaje
+	//Funcionalidad MODIFICAR avanzado
+		if(e.getSource().equals(this.vista2.btnModTonelajeExplosivo))
+			{
+				
+			}
+		
+	//Volver desde ventana de modificación avanzada
 		if(e.getSource().equals(this.vista2.btnVolModTonExplosivo))
 			{
-				this.vista2.txtNuevoTonelajeExplosivo.setText("");
-				this.vista2.frmModificarTonelajeExplosivo.setVisible(false); 
+				
+				this.vista2.frmModificarExplosivoAvanzado.setVisible(false); 
 				this.vista2.frmModificarExplosivo.setVisible(true);
 			}
 		
@@ -942,42 +1117,9 @@ public class Controlador implements WindowListener, ActionListener
 		if(e.getSource().equals(this.vista2.btnModVolDialogoErrorExplosivo))
 			{
 				this.vista2.dlgModErrorExplosivo.setVisible(false); 
-				this.vista2.frmModificarTonelajeExplosivo. setVisible(true);
+				this.vista2.frmModificarExplosivoAvanzado. setVisible(true);
 			}
 		
-	//Lanzar ventana MODIFICR PRECIO 
-		if(e.getSource().equals(this.vista2.btnModificarExplosivo) && this.vista2.choSeleccionarCampoExplosivo.getSelectedItem().equals("Precio"))
-			{
-				this.vista2.frmModificarExplosivo.setVisible(false);
-				this.vista2.frmModificarPrecioExplosivo.setVisible(true);
-			}
-		
-	//Funcionalidad MODIFICAR PRECIO
-		if(e.getSource().equals(this.vista2.btnModPrecioExplosivo))
-			{
-				conexion = this.modelo.conectar(); 
-				String[] seleccionadoPrecio = this.vista2.choModificarExplosivo.getSelectedItem().split(" / "); 
-				String precioElegido = this.modelo.explosivoSeleccionarPrecio(conexion, seleccionadoPrecio[0], this.vista2.txtNuevoPrecioExplosivo.getText());
-					if (precioElegido.equals("correcto"))
-						{
-							this.vista2.frmModificarPrecioExplosivo.setVisible(false);
-							this.vista2.dlgModCorrectaExplosivo.setVisible(true);
-						}
-					else
-						{
-							this.vista2.frmModificarPrecioExplosivo.setVisible(false); 
-							this.vista2.dlgModErrorExplosivo. setVisible(true);
-						}
-					
-			}
-		
-	//Volver a modificar desde modificar precio
-		if(e.getSource().equals(this.vista2.btnVolModPreExplosivo))
-			{
-				this.vista2.txtNuevoPrecioExplosivo.setText(""); 
-				this.vista2.frmModificarPrecioExplosivo. setVisible(false); 
-				this.vista2.frmModificarExplosivo.setVisible(true);
-			}
 		
 //CONSULTA EXPLOSIVOS
 		
@@ -1002,6 +1144,7 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista2.txalistadoExplosivo.setText(""); 
 				String consultaExp = this.modelo.consultaExplosivo(); 
 				this.vista2.txalistadoExplosivo.append(consultaExp);
+				this.modelo.desconected(conexion);
 			}
 		
 	//Función EXPORTAR PDF EXPLOSIVO
@@ -1015,6 +1158,7 @@ public class Controlador implements WindowListener, ActionListener
 					{
 						this.vista2.dialogoExportPdfMalExplosivo.setVisible(true);
 					}
+				this.modelo.desconected(conexion);
 			}
 	
 	//Volver desde el diálogo error al exportar documento pdf explosivo
@@ -1023,7 +1167,284 @@ public class Controlador implements WindowListener, ActionListener
 				this.vista2.dialogoExportPdfMalExplosivo.setVisible(false);
 				this.vista2.frmConsultaExplosivo.setVisible(true);
 			}
+		
+//CLIENTES-------------------------------------------------------------------------------------------------------------------------------------------------------
+		
+		//Ventana ALTA CLIENTE
+			if(e.getSource().equals(this.vista2.mniAltaCliente))
+				{
+					this.vista2.setVisible(false); 
+					this.vista2.frmAltaCliente.setVisible(true);
+				}
+
+		//Volver desde alta cliente
+				if(e.getSource().equals(this.vista2.btnVolverGeneralAltaCliente))
+					{
+						this.vista2.frmAltaCliente.setVisible(false);
+						this.vista2.setVisible(true);
+					}
+
+			//Función ALTA CLIENTE
+				if(e.getSource().equals(this.vista2.btnAltaCliente))
+					{
+						conexion = this.modelo.conectar();
+						String altaClienteOk = this.modelo.crearCliente(conexion, vista2.txtDireccionCliente.getText(), vista2.txtNombreCliente.getText(), vista2.txtCorreoElectronicoCliente.getText(), vista2.txtTelefonoCliente.getText(), vista2.txtCodigoPostalCliente.getText());
+						if(altaClienteOk.equals("correcto"))
+							{
+								this.vista2.dialogoAltaClienteBien.setVisible(true);
+							}
+						else
+							{
+								this.vista2.dialogoAltaClienteMal.setVisible(true);
+							}
+						this.modelo.desconected(conexion);
+					}
+				
+			//Volver desde diálogo de correcto alta Cliente
+				if(e.getSource().equals(this.vista2.btnCorrectoAltaClienteVolver))
+					{
+						this.vista2.txtDireccionCliente.setText(""); 
+						this.vista2.txtNombreCliente.setText(""); 
+						this.vista2.txtCorreoElectronicoCliente.setText(""); 
+						this.vista2.txtTelefonoCliente.setText(""); 
+						this.vista2.txtCodigoPostalCliente.setText(""); 
+						this.vista2.dialogoAltaClienteBien.setVisible(false); 
+						this.vista2.frmAltaCliente.setVisible(false); 
+						this.vista2.setVisible(true); 	
+					}
+				
+			//Volver desde el diálogo error alta cliente
+				if(e.getSource().equals(this.vista2.btnErrorAltaClienteVolver))
+					{
+						this.vista2.dialogoAltaClienteMal.setVisible(false); 
+						this.vista2.frmAltaCliente.setVisible(true);
+					}
+				
+			//Lanzar ventana BAJA de Cliente
+				if(e.getSource().equals(this.vista2.mniBajaCliente))
+					{
+						this.vista2.setVisible(false); 
+						this.vista2.dlgSeguroClienteBaja.setVisible(false);
+						this.vista2.frmBajaCliente.setVisible(true);
+					}
+			
+			//Volver desde ventana de baja cliente
+				if(e.getSource().equals(this.vista2.btnVolverGeneralBajaCliente))
+					{
+						this.vista2.frmBajaCliente.setVisible(false); 
+						this.vista2.setVisible(true);
+					}
+
+			//Dialogo sí está seguro de borrar al cliente
+				if(e.getSource().equals(this.vista2.btnBajaCliente))
+					{
+						this.vista2.dlgSeguroClienteBaja.setVisible(true);
+					}
+			
+			//Rellenar el desplegable para elegir al cliente que desea borrar
+				if(e.getSource().equals(this.vista2.mniBajaCliente))
+					{
+						conexion = this.modelo.conectar(); 
+						this.vista2.choCliente = (this.modelo.borrarCliente(conexion, this.vista2.choCliente));
+						this.modelo.desconected(conexion);
+					}
+			
+			//Funcionalidad BAJA CLIENTE
+				if(e.getSource().equals(this.vista2.btnSiSeguroClienteBaja))
+					{
+						conexion = this.modelo.conectar(); 
+						String[] seleccionadoCliente = this.vista2.choCliente.getSelectedItem().split("-"); 
+						String borrarCliente = this.modelo.eliminarCliente(conexion, seleccionadoCliente[0]);
+						
+						if(borrarCliente.equals("correcto"))
+							{
+								this.vista2.frmBajaCliente.setVisible(false); 
+								this.vista2.dlgSeguroClienteBaja.setVisible(false); 
+								this.vista2.dialogoBajaClienteBien.setVisible(true);
+							}					
+						else
+							{
+								this.vista2.frmBajaCliente.setVisible(false); 
+								this.vista2.dlgSeguroClienteBaja.setVisible(false); 
+								this.vista2.dialogoBajaClienteMal.setVisible(true);
+							}
+						this.modelo.desconected(conexion);
+					}
+				
+			// Volver desde el diálogo de baja correcta del cliente
+				if(e.getSource().equals(this.vista2.btnCorrectoBajaClienteVolver))
+					{
+						this.vista2.dialogoBajaClienteBien.setVisible(false);
+						this.vista2.dlgSeguroClienteBaja.setVisible(false);
+						this.vista2.setVisible(true);
+					}
+
+			//Volver desde el diálogo de pregunta seguridad baja cliente
+				if(e.getSource().equals(this.vista2.btnNoSeguroClienteBaja))
+					{
+						this.vista2.dlgSeguroClienteBaja.setVisible(false); 
+						this.vista2.frmBajaCliente.setVisible(true);
+					}
+				
+			//Volver desde el diálogo de error en la baja del cliente
+				if(e.getSource().equals(this.vista2.btnErrorBajaClienteVolver))
+					{
+						this.vista2.dialogoBajaClienteMal.setVisible(false); 
+						this.vista2.dlgSeguroClienteBaja.setVisible(false);
+						this.vista2.frmBajaCliente.setVisible(true);
+					}
+				
+				//Lanzar ventana MODIFICACIÓN CLIENTE
+				if(e.getSource().equals(this.vista2.mniModificacionCliente))
+					{
+						this.vista2.frmModificarCliente.setVisible(true); 
+						this.vista2.setVisible(false); 
+						conexion = this.modelo.conectar(); 
+						this.vista2.choModificarCliente = this.modelo.elegirClienteModificar(conexion, this.vista2.choModificarCliente);
+						this.modelo.desconected(conexion);
+						
+					}
+				
+				//Lanzar pantalla modificación especifico Cliente
+					if(e.getSource().equals(this.vista2.btnModificarCliente))
+						{
+							this.vista2.frmModificarCliente.setVisible(false);
+							this.vista2.frmModificarEspecificoCliente.setVisible(true); 
+							//utilizo este array para obtener el numero de idCliente, así pasarselo posteriormente al modelo y poder relacionar los datos entre las tablas
+							String[] cogerIdCliente = this.vista2.choModificarCliente.getSelectedItem().split(" / ");
+							conexion = this.modelo.conectar();
+							//obtengo todos los datos delCliente seleccionado en el choice
+							String rellenarHueco = this.modelo.rellTextModiCliente(conexion, cogerIdCliente[0]);
+							String[] seleccionado = rellenarHueco.split(" / ");
+							this.vista2.txtDireccionClienteModificar.setText(seleccionado[1]); 
+							this.vista2.txtNombreClienteModificar.setText(seleccionado[0]);
+							this.vista2.txtCorreoElectronicoClienteModificar.setText(seleccionado[2]);
+							this.vista2.txtTelefonoClienteModificar.setText(seleccionado[3]);
+							this.vista2.txtCodigoPostalClienteModificar.setText(seleccionado[4]);
+							this.modelo.desconected(conexion);
+						}
+				
+			//Volver desde ventana modificar cliente
+				if(e.getSource().equals(this.vista2.btnModVolCliente))
+					{
+						this.vista2.frmModificarCliente.setVisible(false); 
+						this.vista2.setVisible(true);
+					}
+
+			//Funcionalidad MODIFICAR CLIENTE
+				if(e.getSource().equals(this.vista2.btnModificarClienteNuevo))
+					{	
+						conexion = this.modelo.conectar();  
+						String[] seleccionadoCliente = this.vista2.choModificarCliente.getSelectedItem().split(" / ");
+						String modCliente = this.modelo.modificarCliente(conexion, seleccionadoCliente[0], this.vista2.txtDireccionClienteModificar.getText(), this.vista2.txtNombreClienteModificar.getText(), this.vista2.txtCorreoElectronicoClienteModificar.getText(), this.vista2.txtTelefonoClienteModificar.getText(), this.vista2.txtCodigoPostalClienteModificar.getText());
+						
+						if (modCliente.equals("correcto"))
+							{
+								this.vista2.frmModificarEspecificoCliente.setVisible(false); 
+								this.vista2.dlgModCorrectaCliente.setVisible(true);
+							}
+						else
+							{
+								this.vista2.frmModificarEspecificoCliente.setVisible(false); 
+								this.vista2.dlgModErrorCliente.setVisible(true);
+							}
+						this.modelo.desconected(conexion);
+					}
+				
+			// Volver a modificación desde modificar específica cliente
+				if(e.getSource().equals(this.vista2.btnVolModEspEmpleado))
+					{
+						this.vista2.txtDireccionClienteModificar.setText(""); 
+						this.vista2.txtNombreClienteModificar.setText("");
+						this.vista2.txtCorreoElectronicoClienteModificar.setText("");
+						this.vista2.txtTelefonoClienteModificar.setText("");
+						this.vista2.txtCodigoPostalClienteModificar.setText("");
+						this.vista2.frmModificarEspecificoCliente.setVisible(false); 
+						this.vista2.frmModificarCliente.setVisible(true);
+					}
+			
+			//Volver desde el diálogo de modificación correcta
+				if(e.getSource().equals(this.vista2.btnModVolDialogoCorrectaCliente))
+					{
+						this.vista2.dlgModCorrectaCliente.setVisible(false); 
+						this.vista2.frmModificarCliente.setVisible(true);
+					}
+
+			//Volver desde el diálogo de modificación errónea
+				if(e.getSource().equals(this.vista2.btnModVolDialogoErrorEmpleado))
+					{
+						this.vista2.dlgModErrorCliente.setVisible(false); 
+						this.vista2.frmModificarEspecificoCliente.setVisible(true);
+					}
+				
+		//CONSULTA CAMIONES
+				
+			//Lanzar ventana CONSULTA CLIENTE
+				if(e.getSource().equals(this.vista2.mniConsultaCliente))
+					{
+						this.vista2.setVisible(false); 
+						this.vista2.frmConsultaCliente.setVisible(true);
+					}
+					
+			// Volver desde consulta de cliente
+				if(e.getSource().equals(this.vista2.btnVolverConsultaCliente))
+					{
+						this.vista2.frmConsultaCliente.setVisible(false);
+						this.vista2.setVisible(true);
+					}
+
+			//Funcionalidad CONSULTA CAMIÓN
+				if(e.getSource().equals(this.vista2.mniConsultaCliente))
+					{
+						conexion = this.modelo.conectar(); 
+						this.vista2.txalistadoCliente.setText(""); 
+						String consultaClien = this.modelo.consultaCliente(); 
+						this.vista2.txalistadoCliente.append(consultaClien);
+						this.modelo.desconected(conexion);
+					}
+		
+			//Función EXPORTAR PDF CLIENTES
+				if(e.getSource().equals(this.vista2.btnPdfCliente))
+					{
+						conexion = this.modelo.conectar(); 
+						String datosCliente = this.modelo.consultaCliente();
+						String consultaErrorCliente = this.modelo.exportarPdfCliente(conexion, datosCliente); 
+						//ventana diálogo si ha habido un error al exportar el documento 
+						if(consultaErrorCliente.equals("error"))
+							{
+								this.vista2.dialogoExportPdfMalCliente.setVisible(true);
+							}
+						this.modelo.desconected(conexion);
+					}
+			
+			//Volver desde el diálogo error al exportar documento pdf cliente
+				if(e.getSource().equals(this.vista2.btnExportMalCliente))
+					{
+						this.vista2.dialogoExportPdfMalCliente.setVisible(false);
+						this.vista2.frmConsultaCliente.setVisible(true);
+					}
 	}
+
+	@Override
+	public void itemStateChanged(ItemEvent ie) 
+	{
+		if(ie.getSource().equals(this.vista2.choModificarExplosivo))
+			{
+				this.vista2.txtTonelajeExplosivoModificar.setText("");
+				this.vista2.txtTipoExplosivoModificar.setText("");
+				this.vista2.txtPrecioExplosivoModificar.setText("");
+				conexion = this.modelo.conectar(); 
+				String[] seleccionarExplosivoModificar = this.vista2.choClienteSeleccionado.getSelectedItem().split("-"); 
+				this.vista2.choModificarExplosivo = this.modelo.elegirExplosivoModificar(conexion, this.vista2.choModificarExplosivo, seleccionarExplosivoModificar[0]);
+				String[] explosivoElegido = this.vista2.choModificarExplosivo.getSelectedItem().split(" / "); 
+				this.vista2.txtTonelajeExplosivoModificar.setText(explosivoElegido[1]);
+				this.vista2.txtTipoExplosivoModificar.setText(explosivoElegido[2]);
+				this.vista2.txtPrecioExplosivoModificar.setText(explosivoElegido[3]);	
+				this.modelo.desconected(conexion);
+			}
+			
+	}
+	 
 
 }
 	
