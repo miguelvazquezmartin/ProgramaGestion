@@ -17,7 +17,7 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 	Connection conexion = null;
 	
 	
-	Controlador(inicioSesion v1, pantallaMenu v2, Modelo m)
+	public Controlador(inicioSesion v1, pantallaMenu v2, Modelo m)
 	{
 		//otra forma de llamarlos
 			this.vista1= v1;
@@ -289,12 +289,15 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 						this.vista2.mniBajaEmpleado.setEnabled(false); 
 						this.vista2.mniBajaCamion.setEnabled(false); 
 						this.vista2.mniBajaExplosivo.setEnabled(false); 
+						this.vista2.mniBajaCliente.setEnabled(false); 
 						this.vista2.mniModificacionEmpleado.setEnabled(false); 
 						this.vista2.mniModificacionCamion.setEnabled(false); 
 						this.vista2.mniModificacionExplosivo.setEnabled(false);
+						this.vista2.mniModificacionCliente.setEnabled(false);
 						this.vista2.mniConsultaEmpleado.setEnabled(false);
 						this.vista2.mniConsultaCamion.setEnabled(false);
 						this.vista2.mniConsultaExplosivo.setEnabled(false);
+						this.vista2.mniConsultaCliente.setEnabled(false);
 					}
 				else
 					{
@@ -1083,12 +1086,16 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 				String[] seleccionarExplosivoModificar = this.vista2.choClienteSeleccionado.getSelectedItem().split("-"); 
 				this.vista2.choModificarExplosivo = this.modelo.elegirExplosivoModificar(conexion, this.vista2.choModificarExplosivo, seleccionarExplosivoModificar[0]);	
 				this.modelo.desconected(conexion);
+				
 			}
 		
 	//Funcionalidad MODIFICAR avanzado
 		if(e.getSource().equals(this.vista2.btnModTonelajeExplosivo))
 			{
-				
+				conexion = this.modelo.conectar(); 
+				String[] explosivoElegido = this.vista2.choModificarExplosivo.getSelectedItem().split(" / ");
+				this.modelo.explosivoSeleccionarModificar(conexion, explosivoElegido[0], this.vista2.txtTonelajeExplosivoModificar.getText(), this.vista2.txtTipoExplosivoModificar.getText(), this.vista2.txtPrecioExplosivoModificar.getText());
+				this.modelo.desconected(conexion);
 			}
 		
 	//Volver desde ventana de modificación avanzada
@@ -1436,10 +1443,11 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 				conexion = this.modelo.conectar(); 
 				String[] seleccionarExplosivoModificar = this.vista2.choClienteSeleccionado.getSelectedItem().split("-"); 
 				this.vista2.choModificarExplosivo = this.modelo.elegirExplosivoModificar(conexion, this.vista2.choModificarExplosivo, seleccionarExplosivoModificar[0]);
-				String[] explosivoElegido = this.vista2.choModificarExplosivo.getSelectedItem().split(" / "); 
+				String[] explosivoElegido = this.vista2.choModificarExplosivo.getSelectedItem().split(" / ");
 				this.vista2.txtTonelajeExplosivoModificar.setText(explosivoElegido[1]);
 				this.vista2.txtTipoExplosivoModificar.setText(explosivoElegido[2]);
-				this.vista2.txtPrecioExplosivoModificar.setText(explosivoElegido[3]);	
+				this.vista2.txtPrecioExplosivoModificar.setText(explosivoElegido[3]);
+			
 				this.modelo.desconected(conexion);
 			}
 			

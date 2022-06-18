@@ -957,13 +957,12 @@ public class Modelo
 		public Choice elegirExplosivoModificar (Connection connection, Choice choModificarExplosivo, String numeroCliente)
 			{
 				Statement statement = null; 
-			
+				
 					try
 						{
 							statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet .CONCUR_READ_ONLY);
 							rs = statement.executeQuery("SELECT * FROM Explosivos WHERE idClienteFK = '"+numeroCliente+"'");
 							
-							choModificarExplosivo.removeAll();
 							
 							while(rs.next())
 								{
@@ -974,6 +973,7 @@ public class Modelo
 					{
 						System.out.println(sqle.getMessage());
 					}
+					
 				return choModificarExplosivo;
 			}
 		
@@ -1002,12 +1002,12 @@ public class Modelo
 			return choClienteSeleccionado;
 		}
 		
-	//MODIFICAR TONELAJE EXPLOSIVOS
-		public String explosivoSeleccionarPrecio (Connection connection, String seleccionadoPrecio, String nuevoPrecio)
+	//MODIFICAR  EXPLOSIVOS
+		public String explosivoSeleccionarModificar (Connection connection, String seleccionadoId, String nuevoTonelaje, String nuevoTipo,String nuevoPrecio)
 			{
 				String precioElegido = ""; 
 				String OK = "correcto";
-				sentencia = "UPDATE Explosivos SET precioExplosivo='"+nuevoPrecio+"' WHERE idExplosivo='"+seleccionadoPrecio+"'";
+				sentencia = "UPDATE Explosivos SET tonelajeExplosivo='"+nuevoTonelaje+"', tipoExplosivo='"+nuevoTipo+"', precioExplosivo='"+nuevoPrecio+"' WHERE idExplosivo='"+seleccionadoId+"'";
 					
 					try
 						{
@@ -1029,7 +1029,7 @@ public class Modelo
 			{
 				String listadoExplosivo = ""; 
 				ResultSet rs = null; 
-				sentencia = "select idExplosivo, tonelajeExplosivo, tipoExplosivo, precioExplosivo, direccionCliente, nombreCliente, correoElectronicoCliente, telefonoCliente, codigoPostalCliente FROM Explosivos JOIN Clientes WHERE Clientes.idCliente = Explosivos.idClienteFK";
+				sentencia = "select idExplosivo, tonelajeExplosivo, tipoExplosivo, precioExplosivo, direccionCliente, nombreCliente, correoElectronicoCliente, telefonoCliente, codigoPostalCliente FROM Explosivos JOIN Clientes WHERE Clientes.idCliente = Explosivos.idClienteFK ORDER BY idClienteFK";
 				
 					try
 						{
