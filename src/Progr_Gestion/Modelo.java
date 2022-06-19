@@ -141,7 +141,7 @@ public class Modelo
 			{
 				try
 					{
-						Runtime.getRuntime().exec("hh.exe Ayuda.chm");
+						Runtime.getRuntime().exec("hh.exe ayuda.chm");
 					}
 				catch (IOException e)
 					{
@@ -1278,7 +1278,7 @@ public class Modelo
 						}
 					return(listadoCliente);
 				}
-		//EXPORTAR PDF EXPLOSIVOS
+		//EXPORTAR PDF CLIENTES
 			public String exportarPdfCliente(Connection connection, String datoCliente)
 				{
 					String consultaErrorCliente = ""; 

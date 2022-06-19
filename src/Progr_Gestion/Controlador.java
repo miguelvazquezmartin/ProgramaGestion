@@ -395,11 +395,12 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 					{
 					//si el método ha funcionado correctamente, lanza la ventana de dialogo de alta correcta
 						this.vista2.dialogoAltaEmpleadoBien.setVisible(true);
-						//Para dar de alta al mismo tiempo al empleado en las tablas de conductores o administrativos, enlazamos con el FK obteniendo el idEmpleado
+						/*Para dar de alta al mismo tiempo al empleado en las tablas de conductores o administrativos, enlazamos con el FK obteniendo el idEmpleado*/
 						String idNumero = this.modelo.enlazar(conexion);
 						System.out.println(idNumero);
 						
-						//si el elemento seleccionado es el del conductor, lanza el método de alta conductor, por el contrario lanza el de administrativo
+						/*si el elemento seleccionado es el del conductor, lanza el método de alta conductor, 
+						 * por el contrario lanza el de administrativo*/
 						if(this.vista2.choTipoEmpleado.getSelectedItem().equals("Conductor"))
 							{
 								conexion = this.modelo.conectar();
@@ -585,7 +586,7 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 			{	
 				conexion = this.modelo.conectar();  
 				String[] seleccionadoEspecifico = this.vista2.choModificarEmpleado.getSelectedItem().split(" / ");
-				String modEspecifico = this.modelo.empleadoSeleccionadoEspecifico(conexion, seleccionadoEspecifico[0], this.vista2.txtTelefonoEmpleadoModificar.getText(), this.vista2.txtDniEmpleadoModificar.getText(), this.vista2.txtNombreEmpleadoModificar.getText(), this.vista2.txtDireccionEmpleadoModificar.getText(), this.vista2.txtApellidosEmpleadoModificar.getText());
+				String modEspecifico = this.modelo.empleadoSeleccionadoEspecifico(conexion, seleccionadoEspecifico[0],this.vista2.txtTelefonoEmpleadoModificar.getText(), this.vista2.txtDniEmpleadoModificar.getText(), this.vista2.txtNombreEmpleadoModificar.getText(), this.vista2.txtDireccionEmpleadoModificar.getText(), this.vista2.txtApellidosEmpleadoModificar.getText());
 				
 				if (modEspecifico.equals("correcto"))
 					{
@@ -833,7 +834,8 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 			}
 		
 	// Lanzar ventana MODIFICAR CAPACIDAD
-		if(e.getSource().equals(this.vista2.btnModificarCamion) && this.vista2.choSeleccionarCampoCamion.getSelectedItem().equals("Capacidad"))
+		if(e.getSource().equals(this.vista2.btnModificarCamion) 
+				&& this.vista2.choSeleccionarCampoCamion.getSelectedItem().equals("Capacidad"))
 			{
 				this.vista2.frmModificarCamion.setVisible(false);
 				this.vista2.frmModificarCapacidadCamion.setVisible(true);
@@ -1195,7 +1197,7 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 				if(e.getSource().equals(this.vista2.btnAltaCliente))
 					{
 						conexion = this.modelo.conectar();
-						String altaClienteOk = this.modelo.crearCliente(conexion, vista2.txtDireccionCliente.getText(), vista2.txtNombreCliente.getText(), vista2.txtCorreoElectronicoCliente.getText(), vista2.txtTelefonoCliente.getText(), vista2.txtCodigoPostalCliente.getText());
+						String altaClienteOk = this.modelo.crearCliente(conexion, vista2.txtDireccionCliente.getText(), vista2.txtNombreCliente.getText(), vista2.txtCorreoElectronicoCliente.getText(),vista2.txtTelefonoCliente.getText(), vista2.txtCodigoPostalCliente.getText());
 						if(altaClienteOk.equals("correcto"))
 							{
 								this.vista2.dialogoAltaClienteBien.setVisible(true);
@@ -1317,7 +1319,7 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 						{
 							this.vista2.frmModificarCliente.setVisible(false);
 							this.vista2.frmModificarEspecificoCliente.setVisible(true); 
-							//utilizo este array para obtener el numero de idCliente, así pasarselo posteriormente al modelo y poder relacionar los datos entre las tablas
+							/*utilizo este array para obtener el numero de idCliente, así pasarselo posteriormente al modelo y poder relacionar los datos entre las tablas*/
 							String[] cogerIdCliente = this.vista2.choModificarCliente.getSelectedItem().split(" / ");
 							conexion = this.modelo.conectar();
 							//obtengo todos los datos delCliente seleccionado en el choice
@@ -1337,13 +1339,20 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 						this.vista2.frmModificarCliente.setVisible(false); 
 						this.vista2.setVisible(true);
 					}
-
+				
+			//Volver desde ventana modificar cliente nuevo a ventana de selección para modificar
+				if(e.getSource().equals(this.vista2.btnVolModCliente))
+					{
+						this.vista2.frmModificarEspecificoCliente.setVisible(false);
+						this.vista2.frmModificarCliente.setVisible(true); 
+					}
+				
 			//Funcionalidad MODIFICAR CLIENTE
 				if(e.getSource().equals(this.vista2.btnModificarClienteNuevo))
 					{	
 						conexion = this.modelo.conectar();  
 						String[] seleccionadoCliente = this.vista2.choModificarCliente.getSelectedItem().split(" / ");
-						String modCliente = this.modelo.modificarCliente(conexion, seleccionadoCliente[0], this.vista2.txtDireccionClienteModificar.getText(), this.vista2.txtNombreClienteModificar.getText(), this.vista2.txtCorreoElectronicoClienteModificar.getText(), this.vista2.txtTelefonoClienteModificar.getText(), this.vista2.txtCodigoPostalClienteModificar.getText());
+						String modCliente = this.modelo.modificarCliente(conexion, seleccionadoCliente[0],this.vista2.txtDireccionClienteModificar.getText(), this.vista2.txtNombreClienteModificar.getText(),this.vista2.txtCorreoElectronicoClienteModificar.getText(), this.vista2.txtTelefonoClienteModificar.getText(),this.vista2.txtCodigoPostalClienteModificar.getText());
 						
 						if (modCliente.equals("correcto"))
 							{
@@ -1384,7 +1393,7 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 						this.vista2.frmModificarEspecificoCliente.setVisible(true);
 					}
 				
-		//CONSULTA CAMIONES
+		//CONSULTA CLIENTES
 				
 			//Lanzar ventana CONSULTA CLIENTE
 				if(e.getSource().equals(this.vista2.mniConsultaCliente))
@@ -1442,7 +1451,8 @@ public class Controlador implements WindowListener, ActionListener, ItemListener
 				this.vista2.txtPrecioExplosivoModificar.setText("");
 				conexion = this.modelo.conectar(); 
 				String[] seleccionarExplosivoModificar = this.vista2.choClienteSeleccionado.getSelectedItem().split("-"); 
-				this.vista2.choModificarExplosivo = this.modelo.elegirExplosivoModificar(conexion, this.vista2.choModificarExplosivo, seleccionarExplosivoModificar[0]);
+				this.vista2.choModificarExplosivo = this.modelo.elegirExplosivoModificar(conexion, 
+						this.vista2.choModificarExplosivo, seleccionarExplosivoModificar[0]);
 				String[] explosivoElegido = this.vista2.choModificarExplosivo.getSelectedItem().split(" / ");
 				this.vista2.txtTonelajeExplosivoModificar.setText(explosivoElegido[1]);
 				this.vista2.txtTipoExplosivoModificar.setText(explosivoElegido[2]);
